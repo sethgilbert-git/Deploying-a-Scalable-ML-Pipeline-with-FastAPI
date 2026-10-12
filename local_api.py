@@ -1,38 +1,30 @@
-import json
+"""Exercise GET and POST against a running local Uvicorn server."""
+import argparse
 
 import requests
 
-# TODO: send a GET using the URL http://127.0.0.1:8000
-r = None # Your code here
-
-# TODO: print the status code
-# print()
-# TODO: print the welcome message
-# print()
-
-
-
-data = {
-    "age": 37,
-    "workclass": "Private",
-    "fnlgt": 178356,
-    "education": "HS-grad",
-    "education-num": 10,
-    "marital-status": "Married-civ-spouse",
-    "occupation": "Prof-specialty",
-    "relationship": "Husband",
-    "race": "White",
-    "sex": "Male",
-    "capital-gain": 0,
-    "capital-loss": 0,
-    "hours-per-week": 40,
+EXAMPLE = {
+    "age": 39, "workclass": "State-gov", "fnlgt": 77516,
+    "education": "Bachelors", "education-num": 13,
+    "marital-status": "Never-married", "occupation": "Adm-clerical",
+    "relationship": "Not-in-family", "race": "White", "sex": "Male",
+    "capital-gain": 2174, "capital-loss": 0, "hours-per-week": 40,
     "native-country": "United-States",
 }
 
-# TODO: send a POST using the data above
-r = None # Your code here
 
-# TODO: print the status code
-# print()
-# TODO: print the result
-# print()
+def main():
+    """Print actual HTTP statuses and JSON for both required methods."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--url", default="http://127.0.0.1:8000")
+    url = parser.parse_args().url.rstrip("/")
+    for method, path, payload in [("GET", "/", None),
+                                  ("POST", "/predict", EXAMPLE)]:
+        response = requests.request(method, url + path, json=payload, timeout=10)
+        print(f"{method} {path} | Status Code: {response.status_code}")
+        print(f"Result: {response.json()}")
+        response.raise_for_status()
+
+
+if __name__ == "__main__":
+    main()
