@@ -1,6 +1,6 @@
 # Census Income Classification API
 
-Submission repository URL: **Pending — replace with your public fork URL before submission.**
+Submission repository URL: https://github.com/sethgilbert-git/Deploying-a-Scalable-ML-Pipeline-with-FastAPI
 
 This project trains a Census income random forest, evaluates held-out categorical slices, and serves predictions through FastAPI. All 12 tests passed locally, and flake8 reported no errors. Actual metrics are in model/metrics.json and model_card.md.
 
